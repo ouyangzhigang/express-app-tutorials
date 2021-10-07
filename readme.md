@@ -195,3 +195,201 @@ router.get('/list', (req, res) => {
 
 module.exports = router;
 ```
+
+## 中间件介绍和使用
+
+### 什么是中间件
+
+中间件是一个可插可拔的设计结构
+
+它是一个函数
+
+处理异常、验证
+
+处理下一个业务功能，通过next转交控制权
+
+### 内置中间件和第三方中间件介绍
+
+- app级别
+```
+/*
+function demo_middleware(err, req, res, next) {
+    // 异常
+    // 请求
+    // 响应
+    // 转交控制权
+}
+**/
+
+function middleware(req, res, next) {
+    const { name } = req.query
+    if (!name) {
+        res.status(403).json({ message: '缺少必要参数' })
+    } else {
+        next()
+    }
+}
+
+app.use('/api', middleware)
+```
+
+- router 级别
+
+that router
+```
+const express = require('express')
+
+const router = express.Router()
+
+router.use((req, res, next) => {
+    console.log('that router middleware is run~')
+    next()
+})
+
+router.get('/list', (req, res) => {
+    res.json({
+        list: [1,2,3,4,5]
+    })
+})
+
+module.exports = router;
+```
+
+app
+```
+app.use('/that', thatRouter)
+```
+
+multiple middleware
+```
+router.get('/list', [/* multiple middleware */],  (req, res) => {
+    res.json({
+        list: [1,2,3,4,5]
+    })
+})
+```
+
+
+- log处理（app级别）
+
+```
+function log_middleware(req, res, next) {
+    console.log('发起请求 =>', req.method, req.query, req.params, '请求结束 。 \n')
+    next()
+}
+
+app.use(log_middleware)
+
+```
+
+- 静态中间件（内置）
+```
+// 加载一个static的中间件
+app.use(express.static('static', {
+    extensions: ['html', 'htm', 'js', 'css']
+}))
+```
+
+
+### 自定义中间件
+
+```
+// one
+function demo_middleware(req, res, next) {
+    try {
+        // mysql option
+    } catch (err) {
+        next(error)
+    }
+}
+
+// two
+Promise.then().catch(next)
+
+// 被error中间件接收
+app.use('/api', err_handler_middleware)
+```
+
+## 异常捕获
+
+- 直接抛出
+
+```
+throw new Error('xxx')
+```
+
+- 中间件处理
+
+定义中间件
+
+```
+function err_handler_middleware(err, req, res, next) {
+    if (err) {
+        res.status(500).json({ message: 'error' })
+    } else {
+        //
+        next()
+    }
+}
+
+function not_found_middleware(req, res, next) {
+    res.json({
+        message: '未找到'
+    })
+}
+```
+
+注册中间件
+```
+app.use('/api', err_handler_middleware)
+app.use(not_found_middleware)
+```
+
+
+## mysql
+
+- 安装mysql
+
+> 进入官网
+
+> installing mysql shell
+
+> installing mysql shell on [system]
+
+> mac install
+install
+`brew install mysql`
+check
+`brew list | grep mysql`
+services
+`brew services list`
+stop
+`brew services stop mysql`
+start
+`brew services start mysql`
+
+
+- mysql use
+
+launch
+`mysql -u root`
+
+
+sql databases
+`show databases;`
+
+select sql
+`use [databases];`
+
+tables
+`show tables;`
+
+select table
+`select * from [table]`
+`select count(*) from [table]`
+
+- client
+> navicat premium
+> 嗨迪sql
+> workbench
+> sqlite

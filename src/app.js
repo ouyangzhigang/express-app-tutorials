@@ -5,7 +5,7 @@ const port = 8877
 
 const thatRouter = require('./route')
 
-app.use(thatRouter)
+app.use('/that', thatRouter)
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
