@@ -348,6 +348,13 @@ app.use(not_found_middleware)
 
 ## mysql
 
+>> 结构话数据库中的一种
+
+>> 提供了数据存放的服务
+
+>> 数据库划分数据：数据库 --> 表
+
+
 - 安装mysql
 
 > 进入官网
@@ -359,12 +366,16 @@ app.use(not_found_middleware)
 > mac install
 install
 `brew install mysql`
+
 check
 `brew list | grep mysql`
+
 services
 `brew services list`
+
 stop
 `brew services stop mysql`
+
 start
 `brew services start mysql`
 
@@ -390,6 +401,32 @@ select table
 
 - client
 > navicat premium
+
 > 嗨迪sql
+
 > workbench
+
 > sqlite
+
+
+## nodejs sql
+
+使用sequelize进行数据库连接，还有数据库的数据一系列操作
+
+- 什么是ORM
+`node app --> ORM --> node-mysql --> mysql db`
+
+- sequelize作用
+`数据库操作`
+
+- 在nodejs应用中集成sequelize
+`mysql2`
+`sequelize-cli`
+
+
+### reference
+
+[pnpm](https://pnpm.io/cli/add)
+[Sequelize](https://sequelize.org/master/)
+[express](https://www.expressjs.com.cn/starter/hello-world.html)
+[sequelize/cli](https://github.com/sequelize/cli)
