@@ -364,7 +364,9 @@ app.use(not_found_middleware)
 > installing mysql shell on [system]
 
 > mac install
+
 install
+
 `brew install mysql`
 
 check
