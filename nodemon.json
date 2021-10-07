@@ -1,0 +1,21 @@
+{
+    "name": "node-demo",
+    "restartable": "rs",
+    "verbose": true,
+    "env": {
+        "NODE_ENV": "development",
+        "PORT": 8877
+    },
+    "watch": [
+        "src/"
+    ],
+    "events": {
+        "restart": "echo \"restart...\""
+    },
+    "nodemonConfig": {
+        "ignore": [".git", "node_modules/*"],
+        "delay": 2555
+    },
+    "ext": "js json",
+    "legacy-watch": false
+}
